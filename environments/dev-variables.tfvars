@@ -49,7 +49,7 @@ pgsql_storage_mb                     = "32768"
 pg_zone                                 = "1"
 
 # aks
-kubernetes_version = "1.28.9"
+kubernetes_version = "1.30.9"
 node_count = 4
 vm_size = "standard_d8s_v5"
 max_pods = 110

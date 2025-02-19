@@ -68,16 +68,16 @@ data "azurerm_kubernetes_cluster" "default" {
 
 resource "null_resource" "wait_for_image" {
   provisioner "local-exec" {
-    command =  "az acr import -n difyimagesacr --source docker.io/langgenius/dify-sandbox:0.2.1"
+    command =  "az acr import -n difyimagesacr --source docker.io/langgenius/dify-sandbox:latest"
     working_dir = path.module
   }
  
   provisioner "local-exec" {
-    command =  "az acr import -n difyimagesacr --source docker.io/langgenius/dify-api:0.6.16"
+    command =  "az acr import -n difyimagesacr --source docker.io/langgenius/dify-api:latest"
     working_dir = path.module
   }  
   provisioner "local-exec" {
-    command =  "az acr import -n difyimagesacr --source docker.io/langgenius/dify-web:0.6.16"
+    command =  "az acr import -n difyimagesacr --source docker.io/langgenius/dify-web:latest"
     working_dir = path.module
   }
 

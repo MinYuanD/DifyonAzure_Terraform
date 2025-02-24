@@ -58,6 +58,7 @@ module "aks" {
   subnet_appgw        = module.subnet.subnet_ids.snet-appgw
   depends_on          = [module.subnet, module.redis, module.pgsql]
   vnet_id             = module.subnet.vnet_id
+  acr_name            = var.acr_name
 }
 
 data "azurerm_kubernetes_cluster" "default" {
@@ -68,16 +69,16 @@ data "azurerm_kubernetes_cluster" "default" {
 
 resource "null_resource" "wait_for_image" {
   provisioner "local-exec" {
-    command =  "az acr import -n difyimagesacr --source docker.io/langgenius/dify-sandbox:latest"
+    command =  "az acr import -n ${var.acr_name} --source docker.io/langgenius/dify-sandbox:latest --username ${var.docker_username} --password ${var.docker_password}"
     working_dir = path.module
   }
  
   provisioner "local-exec" {
-    command =  "az acr import -n difyimagesacr --source docker.io/langgenius/dify-api:latest"
+    command =  "az acr import -n ${var.acr_name} --source docker.io/langgenius/dify-api:latest --username ${var.docker_username} --password ${var.docker_password}"
     working_dir = path.module
   }  
   provisioner "local-exec" {
-    command =  "az acr import -n difyimagesacr --source docker.io/langgenius/dify-web:latest"
+    command =  "az acr import -n ${var.acr_name} --source docker.io/langgenius/dify-web:latest --username ${var.docker_username} --password ${var.docker_password}"
     working_dir = path.module
   }
 
@@ -132,6 +133,10 @@ module "dify" {
   pgvector_username = var.pgsql_admin_login
   pgvector_password = var.pgsql_admin_password
   pgvector_fqdn = module.pgsql.pgsql_host
+
+  dify_image_api_acr = "${var.acr_name}.azurecr.io/langgenius/dify-api"
+  dify_image_web_acr = "${var.acr_name}.azurecr.io/langgenius/dify-web"
+  dify_image_sandbox_acr = "${var.acr_name}.azurecr.io/langgenius/dify-sandbox"
 
   depends_on   = [local_file.kubeconfig, null_resource.wait_for_image]
 }

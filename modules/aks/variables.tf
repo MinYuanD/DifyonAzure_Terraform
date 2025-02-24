@@ -9,3 +9,4 @@ variable "appgw_name" {}
 variable "subnet_appgw" {}
 variable "kubernetes_version" {}
 variable "vnet_id" {}
+variable "acr_name" {}

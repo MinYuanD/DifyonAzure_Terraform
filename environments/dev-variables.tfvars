@@ -53,6 +53,9 @@ kubernetes_version = "1.30.9"
 node_count = 4
 vm_size = "standard_d8s_v5"
 max_pods = 110
+acr_name = "xxxxxxxx"
+docker_username = "xxxxxxxx"
+docker_password = "xxxxxxxx"
 
 # path to kubeconfig file
 filename = "C:/Users/.kube/config"

@@ -67,6 +67,18 @@ variable "max_pods" {
   default = "30"
 }
 
+variable "acr_name" {
+  default = "difycustomimages"
+}
+
+variable "docker_username" {
+  default = ""
+}
+
+variable "docker_password" {
+  default = ""
+}
+
 variable "redis_cache_enabled" {
   default = true
 }

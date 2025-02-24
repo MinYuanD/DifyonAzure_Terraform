@@ -34,7 +34,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
 resource "azurerm_container_registry" "acr" {
     location            = var.location
     resource_group_name = var.resource_group_name
-    name                = "difyimagesacr"
+    name                = var.acr_name
     sku                 = "Standard"
     admin_enabled       = true
 }

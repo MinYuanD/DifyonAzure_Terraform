@@ -43,6 +43,21 @@ resource "helm_release" "dify" {
     value = var.pgvector_fqdn
   }
 
+  set {
+    name  = "image.api.repository"
+    value = var.dify_image_api_acr
+  }
+
+  set {
+    name  = "image.web.repository"
+    value = var.dify_image_web_acr
+  }
+
+  set {
+    name  = "image.sandbox.repository"
+    value = var.dify_image_sandbox_acr
+  }
+  
   namespace = "default"
 }
 
